@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FREEMAN ALMATY / Minimalist Catalog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <header>
+        <button class="burger-btn" onclick="toggleDrawer()" aria-label="Мәзір">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+
+        <div class="brand-logo">FREEMAN ALMATY</div>
+
+        <button class="admin-toggle-btn" onclick="openAdminLogin()">
+            <span>Admin</span>
+        </button>
+    </header>
+
+    <!-- Бүйірлік Мәзір (8 Категория) -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
+    <div class="side-drawer" id="sideDrawer">
+        <div class="drawer-header">
+            <h3>Категориялар</h3>
+            <button class="close-drawer" onclick="toggleDrawer()">✕</button>
+        </div>
+        <div class="drawer-links" id="drawerLinks"></div>
+    </div>
+
+    <main class="container">
+        <div class="section-header">
+            <h2 id="currentCategoryTitle">Барлық тауарлар</h2>
+            <span class="item-count" id="itemCount">0 тауар</span>
+        </div>
+        <div class="grid" id="productGrid"></div>
+    </main>
+
+    <!-- Floating Cart Dock -->
+    <div class="cart-dock" id="cartDock">
+        <div class="cart-meta">
+            <span class="cart-count" id="cartCount">Себет бос</span>
+            <span class="cart-total" id="cartTotal">0 ₸</span>
+        </div>
+        <button class="checkout-btn" onclick="sendWhatsAppOrder()">
+            <span>WhatsApp-қа тапсырыс</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+    </div>
+
+    <!-- Admin Login Modal (Құпия сөз терезесі) -->
+    <div class="admin-modal" id="loginModal">
+        <div class="admin-content" style="max-width: 320px; text-align: center;">
+            <div class="admin-header-modal" style="justify-content: center; margin-bottom: 12px;">
+                <h3>Админ кіру</h3>
+            </div>
+            <p class="admin-subtitle" style="margin-bottom: 16px;">Құпия сөзді енгізіңіз</p>
+            <input type="password" id="adminPasswordInput" placeholder="PIN код..." style="text-align: center; font-size: 1rem; letter-spacing: 2px;">
+            <button class="close-admin" onclick="verifyAdminPassword()" style="margin-top: 10px;">Кіру</button>
+            <button class="close-admin" onclick="closeAdminLogin()" style="background: #f4f4f5; color: #000; margin-top: 6px;">Жабу</button>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Modal (Басқару панелі) -->
+    <div class="admin-modal" id="adminModal">
+        <div class="admin-content">
+            <div class="admin-header-modal">
+                <h3>Дүкенді Басқару Панелі</h3>
+                <button class="close-modal-icon" onclick="toggleAdmin()">✕</button>
+            </div>
+            <div class="admin-subtitle">Тауарларды қосыңыз, өшіріңіз немесе бағасын өзгертіңіз</div>
+            
+            <!-- Жаңа тауар қосу батырмасы -->
+            <button class="add-new-product-btn" onclick="openAddProductModal()">+ Жаңа тауар қосу</button>
+
+            <!-- 8 категория бойынша бөлінген админ тізімі -->
+            <div id="adminFormContainer"></div>
+
+            <button class="close-admin" onclick="toggleAdmin()">Сақтау және Жабу</button>
+        </div>
+    </div>
+
+    <!-- Жаңа тауар қосу модалы -->
+    <div class="admin-modal" id="addProductModal">
+        <div class="admin-content" style="max-width: 400px;">
+            <div class="admin-header-modal">
+                <h3>Жаңа тауар қосу</h3>
+                <button class="close-modal-icon" onclick="closeAddProductModal()">✕</button>
+            </div>
+            <div class="admin-item" style="margin-top: 12px;">
+                <label>Тауар атауы:</label>
+                <input type="text" id="newTitle" placeholder="Мысалы: Oversized Hoodie">
+                
+                <label>Бағасы (₸):</label>
+                <input type="number" id="newPrice" placeholder="18000">
+
+                <label>Категория:</label>
+                <select id="newCategory">
+                    <option value="vetrovki">Ветровки</option>
+                    <option value="kardigany">Кардиганы</option>
+                    <option value="poluzamoki">Полузамоки</option>
+                    <option value="dwoyki">Двойки</option>
+                    <option value="futbolki">Футболки</option>
+                    <option value="jeans-bruki-trico">Джинсы-Брюки-Трико</option>
+                    <option value="obuvi">Обуви</option>
+                    <option value="aksessuary">Акксексуары</option>
+                </select>
+
+                <label>Сурет сілтемесі (URL):</label>
+                <input type="text" id="newImg" placeholder="https://images.unsplash.com/...">
+            </div>
+            <button class="close-admin" onclick="addNewProductItem()">Қосу</button>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
